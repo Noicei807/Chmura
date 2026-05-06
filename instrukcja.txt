@@ -1,0 +1,64 @@
+============================================================
+ADRES REPOZYTORIUM: https://github.com/Noicei807/Chmura.git
+ADRES IP SERWERA: http://13.60.45.41
+============================================================
+
+KROK 0: PIERWSZA KONFIGURACJA
+-----------------------------------------------
+1. Otwórz CMD (Wiersz poleceń) na Pulpicie.
+2. Pobierz projekt:
+   git clone https://github.com/Noicei807/Chmura.git
+3. Wejdź do folderu:
+   cd Chmura
+4. Stwórz środowisko wirtualne:
+   python -m venv venv
+5. Aktywuj środowisko:
+   venv\Scripts\activate
+6. Zainstaluj biblioteki:
+   pip install flask flask-sqlalchemy pymysql cryptography
+
+------------------------------------------------------------
+
+KROK 1: CODZIENNA PRACA LOKALNA (Zmienianie kodu)
+-------------------------------------------------
+1. ZAWSZE zacznij od pobrania nowości (będąc w dolderze "Chmura"):
+   git pull origin main
+2. Aktywuj środowisko (jeśli nie jest):
+   venv\Scripts\activate
+3. Odpal podgląd u siebie:
+   python app.py
+   -> W przeglądarce wejdź na: http://127.0.0.1:5000
+4. Edytuj pliki w VS Code / Notatniku. Po zmianach odśwież stronę (F5).
+
+------------------------------------------------------------
+
+KROK 2: WYSYŁANIE ZMIAN NA GITHUB
+---------------------------------
+Gdy lokalnie wszystko wygląda i działa git:
+
+1. Dodaj pliki:
+   git add .
+2. Zrób opis zmian:
+   git commit -m "Tutaj napisz co zmieniles"
+3. Wyślij do internetu:
+   git push origin main
+   -> Login: Twoja nazwa na GitHub
+   -> Hasło: Twój Personal Access Token (PAT)
+
+------------------------------------------------------------
+
+KROK 3: AKTUALIZACJA SERWERA AWS (Widoczność pod 13.60.45.41)
+------------------------------------------------------------
+
+1. Połącz się z serwerem (musisz mieć plik .pem w folderze):
+   ssh -i twoj_klucz.pem ubuntu@13.60.45.41
+
+2. Wejdź do folderu i pobierz kod:
+   cd ~/Chmura
+   git pull origin main
+
+3. Zrestartuj aplikację:
+   sudo pkill gunicorn
+   sudo venv/bin/gunicorn -w 2 -b 0.0.0.0:80 app:app --daemon
+
+4. Sprawdź efekt na: http://13.60.45.41
