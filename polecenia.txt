@@ -1,4 +1,0 @@
-- po wejściu do folderu projektu w cmd: venv\Scripts\activate
-- po dodaniu nowych pakietów: pip freeze > requirements.txt
-
-- odpalenie serwera to polecenie: python app.py
