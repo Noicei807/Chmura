@@ -2,12 +2,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding-top: 50px;
     margin: 0;
 }
 
-.form-container {
+form {
     background: white;
     padding: 30px;
     border-radius: 8px;
@@ -17,22 +18,21 @@ body {
 }
 
 h2 {
-    margin-top: 0;
+    margin-bottom: 20px;
     color: #333;
     text-align: center;
-}
-
-.input-group {
-    margin-bottom: 15px;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
     color: #666;
+    font-weight: bold;
 }
 
-input[type="text"], select {
+input[type="text"],
+input[type="number"],
+select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -49,7 +49,8 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 15px;
+    transition: background-color 0.2s ease-in-out;
 }
 
     button:hover {

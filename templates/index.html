@@ -10,14 +10,18 @@
     <form action="/rezerwuj" method="POST">
         <div class="mb-3">
             <label class="form-label">Imię i nazwisko</label>
-            <input type="text" class="form-control" name="imie" required>
+            <input type="text" class="form-control" name="imie_nazwisko" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Wybierz usługę</label>
-            <select class="form-select" name="usluga">
-                <option value="Konsultacja">Konsultacja</option>
-                <option value="Serwis">Serwis sprzętu</option>
+            <select class="form-select" name="usluga_id">
+                <option value="1">Konsultacja</option>
+                <option value="2">Serwis sprzętu</option>
             </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Data i godzina</label>
+            <input type="datetime-local" class="form-control" name="data_wizyty" required>
         </div>
         <button type="submit" class="btn btn-primary">Rezerwuj</button>
     </form>
