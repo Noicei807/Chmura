@@ -51,7 +51,7 @@ KROK 3: AKTUALIZACJA SERWERA AWS (Widoczność pod 13.60.45.41)
 ------------------------------------------------------------
 
 1. Połącz się z serwerem (musisz mieć plik .pem w folderze):
-   ssh -i twoj_klucz.pem ubuntu@13.60.45.41
+   ssh -i klucz.pem ubuntu@13.60.45.41
 
 2. Wejdź do folderu i pobierz kod:
    cd ~/Chmura
