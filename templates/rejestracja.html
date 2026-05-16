@@ -8,43 +8,44 @@
 </head>
 <body>
     <div class="register">
-    <main class="register__main">
-        <header class="register__main--header">
-            <h2>Panel rejestracji</h2>
-        </header>
-    <form method="post" class="register__form">
+        <main class="register__main">
+            <header class="register__main--header">
+                <h2>Panel rejestracji</h2>
+            </header>
+            {% if error %}<p style="color:red; text-align:center; font-weight:bold;">{{ error }}</p>{% endif %}
+            <form method="post" class="register__form">
 
-            <fieldset>
-            <legend>Zarejestruj konto</legend>
+                <fieldset>
+                    <legend>Zarejestruj konto</legend>
 
-            <label for="userName">Imię:</label>
-            <input class="register__form--fields" placeholder="Adam" id="userName" name="userName"required />
+                    <label for="userName">Imię:</label>
+                    <input class="register__form--fields" placeholder="Adam" id="userName" name="userName" required />
 
-            <label for="userSurname">Nazwisko:</label>
-            <input class="register__form--fields" placeholder="Kowalski" id="userSurname" name="userSurname"required />
+                    <label for="userSurname">Nazwisko:</label>
+                    <input class="register__form--fields" placeholder="Kowalski" id="userSurname" name="userSurname" required />
 
-            <label for="userEmail">Email:</label>
-            <input class="register__form--fields" placeholder="📧 email@.pl" id="userEmail" type="email" name="userEmail" required/>
+                    <label for="userEmail">Email:</label>
+                    <input class="register__form--fields" placeholder="📧 email@.pl" id="userEmail" type="email" name="userEmail" required />
 
-            <label for="userNumber">Nr telefonu:</label>
-            <input class="register__form--fields" placeholder="📱123456789" id="userNumber" type="tel" pattern="[0-9]{9}" name="userNumber"required />
+                    <label for="userNumber">Nr telefonu:</label>
+                    <input class="register__form--fields" placeholder="📱123456789" id="userNumber" type="tel" pattern="[0-9]{9}" name="userNumber" required />
 
-            <label for="userPassword">Hasło:</label>
-            <input class="register__form--fields" placeholder="🔐 min.6 znaków" id="userPassword" type="password" name="userPassword" required/>
+                    <label for="userPassword">Hasło:</label>
+                    <input class="register__form--fields" placeholder="🔐 min.6 znaków" id="userPassword" type="password" name="userPassword" required />
 
-            <label for="userPassword">Hasło:</label>
-            <input class="register__form--fields" placeholder="🔐 Powtórz Hasło" id="userPasswordRepeat" type="password" name="userPasswordRepeat" required/>
+                    <label for="userPassword">Hasło:</label>
+                    <input class="register__form--fields" placeholder="🔐 Powtórz Hasło" id="userPasswordRepeat" type="password" name="userPasswordRepeat" required />
 
-            <button class="register__button">Stwórz konto</button>
+                    <button class="register__button">Stwórz konto</button>
 
-            </fieldset>
-            <div class="rejestracja__login">
-            Masz już konto? <a href="logowanie.html">Zaloguj się</a>
-            </div>
+                </fieldset>
+                <div class="rejestracja__login">
+                    Masz już konto? <a href="{{ url_for('logowanie') }}"> Zaloguj się</a>
+                </div>
 
-    </form>
+            </form>
 
-    </main>
+        </main>
     </div>
 </body>
 </html>

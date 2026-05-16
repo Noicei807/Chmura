@@ -8,32 +8,33 @@
 </head>
 <body>
     <div class="login">
-    <main class="login__main">
-        <header class="login__main--header">
-            <h2>Panel logowania</h2>
-        </header>
-    <form method="post" class="login__form">
+        <main class="login__main">
+            <header class="login__main--header">
+                <h2>Panel logowania</h2>
+            </header>
+            {% if error %}<p style="color:red; text-align:center; font-weight:bold;">{{ error }}</p>{% endif %}
+            <form method="post" class="login__form">
 
-            <fieldset>
-            <legend>Zaloguj się na swoje konto</legend>
-            <label for="userEmail">Email:</label>
-            <input class="login__email" placeholder="📧 email@.pl" id="userEmail" type="email" name="userEmail" required/>
+                <fieldset>
+                    <legend>Zaloguj się na swoje konto</legend>
+                    <label for="userEmail">Email:</label>
+                    <input class="login__email" placeholder="📧 email@.pl" id="userEmail" type="email" name="userEmail" required />
 
-            <label for="userPassword">Hasło:</label>
-            <input class="login__haslo" placeholder="🔐 min.6 znaków" id="userPassword" type="password" name="userPassword" required/>
+                    <label for="userPassword">Hasło:</label>
+                    <input class="login__haslo" placeholder="🔐 min.6 znaków" id="userPassword" type="password" name="userPassword" required />
 
-            <button class="login__button">Zaloguj</button>
+                    <button class="login__button">Zaloguj</button>
 
-            </fieldset>
-            <div class="login__rejestracja">
-            Nie masz konta? <a href="rejestracja.html"> Zarejestruj się</a>
-            </div>
+                </fieldset>
+                <div class="login__rejestracja">
+                    Nie masz konta? <a href="{{ url_for('rejestracja') }}"> Zarejestruj się</a>
+                </div>
 
 
-            
-    </form>
 
-    </main>
+            </form>
+
+        </main>
     </div>
 </body>
 </html>

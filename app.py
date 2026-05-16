@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = 'super_sekretny_klucz_do_sesji'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Admin123%21@chmura-baza.cliwkweeidej.eu-north-1.rds.amazonaws.com:3306/rezerwacje'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -40,17 +41,13 @@ class Rezerwacja(db.Model):
     status = db.Column(db.String(50), default='Oczekująca')
 
 with app.app_context():
-    # RĘCZNY RESET: Odkomentuj linię poniżej TYLKO na pierwsze uruchomienie
-    #db.drop_all()
     db.create_all()
-    
     if not Kategoria.query.first():
         db.session.add_all([
             Kategoria(id=1, nazwa="Fryzjer"),
             Kategoria(id=2, nazwa="Kosmetyczka")
         ])
         db.session.commit()
-        
     if not Pracownik.query.first():
         db.session.add_all([
             Pracownik(id=1, imie_nazwisko="Andrzej Nowak", ocena=4.85, kategoria_id=1),
@@ -61,35 +58,69 @@ with app.app_context():
         db.session.commit()
 
 @app.route('/')
+def domyslna():
+    return redirect(url_for('logowanie'))
+
+@app.route('/index')
 def index():
+    if 'uzytkownik_id' not in session:
+        return redirect(url_for('logowanie'))
     return render_template('index.html')
 
-@app.route('/rezerwuj', methods=['POST'])
-def rezerwuj():
-    try:
-        imie_nazwisko = request.form.get('imie_nazwisko')
-        pracownik_id = request.form.get('pracownik_id')
-        data_str = request.form.get('data_wizyty')
-        
-        data_wizyty = datetime.strptime(data_str, '%Y-%m-%dT%H:%M')
-        
-        uzytkownik = Uzytkownik.query.filter_by(imie_nazwisko=imie_nazwisko).first()
-        if not uzytkownik:
-            tymczasowy_email = f"{imie_nazwisko.replace(' ', '').lower()}@brak.pl"
-            uzytkownik = Uzytkownik(imie_nazwisko=imie_nazwisko, email=tymczasowy_email, haslo="brak")
-            db.session.add(uzytkownik)
-            db.session.commit()
+@app.route('/logowanie', methods=['GET', 'POST'])
+def logowanie():
+    error = None
+    if request.method == 'POST':
+        email = request.form.get('userEmail')
+        haslo = request.form.get('userPassword')
 
-        nowa_rezerwacja = Rezerwacja(
-            uzytkownik_id=uzytkownik.id, 
-            pracownik_id=pracownik_id, 
-            data_wizyty=data_wizyty
-        )
-        db.session.add(nowa_rezerwacja)
-        db.session.commit()
-        return f"Sukces! Rezerwacja u pracownika o ID {pracownik_id} zapisana."
-    except Exception as e:
-        return f"Wystąpił błąd: {e}"
+        uzytkownik = Uzytkownik.query.filter_by(email=email, haslo=haslo).first()
+        if uzytkownik:
+            session['uzytkownik_id'] = uzytkownik.id
+            session['rola'] = uzytkownik.rola
+            return redirect(url_for('index'))
+        else:
+            error = "Niepoprawny adres e-mail lub hasło."
+
+    return render_template('logowanie.html', error=error)
+
+@app.route('/rejestracja', methods=['GET', 'POST'])
+def rejestracja():
+    error = None
+    if request.method == 'POST':
+        imie = request.form.get('userName')
+        nazwisko = request.form.get('userSurname')
+        email = request.form.get('userEmail')
+        telefon = request.form.get('userNumber')
+        haslo = request.form.get('userPassword')
+        haslo_powtorz = request.form.get('userPasswordRepeat')
+
+        if len(haslo) < 6:
+            error = "Błąd: Hasło musi mieć minimum 6 znaków."
+        elif haslo != haslo_powtorz:
+            error = "Błąd: Podane hasła nie są identyczne."
+        elif Uzytkownik.query.filter_by(email=email).first():
+            error = "Błąd: Użytkownik o podanym adresie e-mail już istnieje!"
+
+        if error is None:
+            pelnosc_imie_nazwisko = f"{imie} {nazwisko}"
+            nowy = Uzytkownik(
+                imie_nazwisko=pelnosc_imie_nazwisko,
+                email=email,
+                haslo=haslo,
+                telefon=telefon,
+                rola='klient'
+            )
+            db.session.add(nowy)
+            db.session.commit()
+            return redirect(url_for('logowanie'))
+
+    return render_template('rejestracja.html', error=error)
+
+@app.route('/wyloguj')
+def wyloguj():
+    session.clear()
+    return redirect(url_for('logowanie'))
 
 if __name__ == '__main__':
     app.run(debug=True)
