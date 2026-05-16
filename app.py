@@ -41,7 +41,7 @@ class Rezerwacja(db.Model):
 
 with app.app_context():
     # RĘCZNY RESET: Odkomentuj linię poniżej TYLKO na pierwsze uruchomienie
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
     
     if not Kategoria.query.first():
