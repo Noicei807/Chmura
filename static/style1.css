@@ -1,0 +1,74 @@
+/* style dla loginu */
+body{
+    margin: 0;
+}
+.login{
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    min-height: 100vh;       
+    width: 100%;
+    background-color: #e2e2e2;
+    
+}
+.login__main{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
+    
+    
+}
+
+    .login__main--header{
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid gray;
+        
+    }
+
+    .login__form{
+        margin: 0%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    fieldset{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 24px;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 16px;
+        border: 2px solid black;
+        
+    }
+    .login__email{
+        border-radius: 16px;
+        padding: 8px;
+    }
+    .login__haslo{
+        border-radius: 16px;
+        padding: 8px;
+    }
+    .login__button{
+        border-radius: 16px;
+        padding: 8px;
+        background-color: white;
+    }
+    .login__rejestracja{
+        display: flex;
+        padding: 16px;
+    }
+    a{
+        color: green;
+        padding-left: 4px;
+    }

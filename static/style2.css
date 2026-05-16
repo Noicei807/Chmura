@@ -1,0 +1,72 @@
+/* Style dla rejestracji */
+
+body{
+    margin: 0;
+    background-color: #e2e2e2;
+}
+.register{
+    display: flex;
+    justify-content: center; 
+    align-items: center;           
+    width: 100%;
+    
+}
+.register__main{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
+    
+    
+}
+
+    .register__main--header{
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid gray;
+        
+    }
+
+    .register__form{
+        margin: 0%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 64px;
+        padding-bottom: 64px;
+        
+    }
+
+    fieldset{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 24px;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 16px;
+        border: 2px solid black;
+        
+    }
+    .register__form--fields{
+        border-radius: 16px;
+        padding: 8px;
+    }
+    .register__button{
+        border-radius: 16px;
+        padding: 8px;
+        background-color: white;
+    }
+    .rejestracja__login{
+        display: flex;
+        padding: 16px;
+    }
+    a{
+        color: green;
+        padding-left: 4px;
+    }
