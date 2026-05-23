@@ -41,7 +41,7 @@ class Rezerwacja(db.Model):
     status = db.Column(db.String(50), default='Zatwierdzona')
 
 with app.app_context():
-    # db.drop_all()
+    #db.drop_all()
     db.create_all()
     if not Kategoria.query.first():
         db.session.add_all([

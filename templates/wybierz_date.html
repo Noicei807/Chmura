@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System rezerwacji - Wybierz termin</title>
+    <link href="/static/style1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="booking">
+        <main class="booking__main">
+            <header class="booking__main--header">
+                <h2>Rezerwacja usługi: {{ kategoria.nazwa }}</h2>
+            </header>
+
+            <form action="{{ url_for('sprawdz_dostepnosc', kategoria_id=kategoria.id) }}" method="POST" class="booking__form">
+                <fieldset>
+                    <legend>Wybierz preferowaną datę i godzinę</legend>
+
+                    <label for="data_wizyty">Data i godzina:</label>
+                    <input class="booking__datetime" id="data_wizyty" type="datetime-local" name="data_wizyty" required />
+
+                    <button class="booking__button">Sprawdź dostępność</button>
+                </fieldset>
+
+                <div class="booking__nav">
+                    <a href="{{ url_for('index') }}">Powrót do kategorii</a>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

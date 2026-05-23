@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System rezerwacji - Dostępni specjaliści</title>
+    <link href="/static/style1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="booking">
+        <main class="booking__main">
+            <header class="booking__main--header">
+                <h2>Dostępni specjaliści: {{ kategoria.nazwa }}</h2>
+                <p class="booking__selected-date">Wybrany termin: <strong>{{ wybrana_data }}</strong></p>
+            </header>
+
+            <div class="booking__list-container">
+                <ul class="booking__list">
+                    {% for wpis in pracownicy_status %}
+                    <li class="booking__item">
+                        <div class="booking__item-info">
+                            <span class="booking__item-name">{{ wpis.pracownik.imie_nazwisko }}</span>
+                            <span class="booking__item-rating">(Ocena: {{ wpis.pracownik.ocena }}/5.00)</span>
+                        </div>
+
+                        <div class="booking__item-status">
+                            {% if wpis.dostepny %}
+                            <span class="booking__status booking__status--available">Dostępny</span>
+
+                            <form action="{{ url_for('rezerwuj') }}" method="POST" class="booking__action-form">
+                                <input type="hidden" name="pracownik_id" value="{{ wpis.pracownik.id }}">
+                                <input type="hidden" name="data_wizyty" value="{{ wybrana_data }}">
+                                <button type="submit" class="booking__action-button">Rezerwuj wizytę</button>
+                            </form>
+                            {% else %}
+                            <span class="booking__status booking__status--unavailable">Niedostępny</span>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="booking__nav">
+                <a href="{{ url_for('wybierz_date', kategoria_id=kategoria.id) }}">Zmień datę</a> |
+                <a href="{{ url_for('index') }}">Powrót do kategorii</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

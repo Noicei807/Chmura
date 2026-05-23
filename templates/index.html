@@ -2,21 +2,30 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>System Rezerwacji - Panel Główny</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System rezerwacji - Panel Główny</title>
+    <link href="/static/style1.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h2>Wybierz kategorię usług</h2>
+    <div class="booking">
+        <main class="booking__main">
+            <header class="booking__main--header">
+                <h2>Wybierz kategorię usług</h2>
+            </header>
 
-    <div>
-        {% for kategoria in kategorie %}
-        <div style="border: 1px solid black; margin: 10px; padding: 10px;">
-            <h3>{{ kategoria.nazwa }}</h3>
-            <a href="{{ url_for('wybierz_date', kategoria_id=kategoria.id) }}">Przejdź do rezerwacji</a>
-        </div>
-        {% endfor %}
+            <div class="booking__categories-container">
+                {% for kategoria in kategorie %}
+                <div class="booking__category-card">
+                    <h3 class="booking__category-title">{{ kategoria.nazwa }}</h3>
+                    <a class="booking__category-link" href="{{ url_for('wybierz_date', kategoria_id=kategoria.id) }}">Przejdź do rezerwacji</a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="booking__nav">
+                <a href="{{ url_for('wyloguj') }}">Wyloguj się</a>
+            </div>
+        </main>
     </div>
-
-    <hr>
-    <a href="{{ url_for('wyloguj') }}">Wyloguj się</a>
 </body>
 </html>
