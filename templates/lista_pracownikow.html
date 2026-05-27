@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System rezerwacji - Dostępni specjaliści</title>
-    <link href="/static/style1.css" rel="stylesheet" type="text/css">
+    <link href="/static/stylePracownicy.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="booking">
@@ -42,7 +42,7 @@
             </div>
 
             <div class="booking__nav">
-                <a href="{{ url_for('wybierz_date', kategoria_id=kategoria.id) }}">Zmień datę</a> |
+                <a href="{{ url_for('wybierz_date', kategoria_id=kategoria.id) }}">Zmień datę</a>
                 <a href="{{ url_for('index') }}">Powrót do kategorii</a>
             </div>
         </main>
