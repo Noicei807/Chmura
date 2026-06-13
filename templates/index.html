@@ -5,9 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System rezerwacji - Panel Główny</title>
     <link href="/static/style1.css" rel="stylesheet" type="text/css">
+    <style>
+        .booking {
+            position: relative;
+            padding-top: 40px;
+        }
+
+        .booking__nav {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            margin: 0;
+        }
+
+        .booking__main--header h2, 
+        .booking__main--header {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .booking__categories-container {
+            display: grid;
+            grid-template-columns: repeat(3, 240px);
+            gap: 30px;
+            justify-content: center;
+            margin: 30px auto;
+            max-width: 900px;
+        }
+
+        .booking__category-card {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            padding: 0 !important;
+            border: none !important;
+        }
+
+        .booking__category-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking__category-image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 75%; 
+            background-color: #fcf6f6;
+        }
+
+        .booking__category-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .booking__category-card:hover .booking__category-image {
+            transform: scale(1.04);
+        }
+
+        .booking__category-title {
+            margin: 0;
+            padding: 15px 10px 20px 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2b2b2b;
+            background-color: #ffffff;
+            order: 2;
+        }
+
+        .booking__category-link {
+            display: none !important;
+        }
+
+        .booking__category-card-wrapper {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="booking">
+        <div class="booking__nav">
+            <a href="{{ url_for('wyloguj') }}">Wyloguj się</a>
+        </div>
+
         <main class="booking__main">
             <header class="booking__main--header">
                 <h2>Wybierz kategorię usług</h2>
@@ -15,15 +108,20 @@
 
             <div class="booking__categories-container">
                 {% for kategoria in kategorie %}
-                <div class="booking__category-card">
-                    <h3 class="booking__category-title">{{ kategoria.nazwa }}</h3>
-                    <a class="booking__category-link" href="{{ url_for('wybierz_date', kategoria_id=kategoria.id) }}">Przejdź do rezerwacji</a>
-                </div>
-                {% endfor %}
-            </div>
+                <a class="booking__category-card-wrapper" href="{{ url_for('wybierz_date', kategoria_id=kategoria.id) }}">
+                    <div class="booking__category-card">
+                        
+                        <div class="booking__category-image-wrapper">
+                            <img class="booking__category-image" 
+                                 src="{{ url_for('static', filename='images/kat_' ~ kategoria.id ~ '.png') }}" 
+                                 alt="{{ kategoria.nazwa }}">
+                        </div>
 
-            <div class="booking__nav">
-                <a href="{{ url_for('wyloguj') }}">Wyloguj się</a>
+                        <h3 class="booking__category-title">{{ kategoria.nazwa }}</h3>
+                        
+                    </div>
+                </a>
+                {% endfor %}
             </div>
         </main>
     </div>
